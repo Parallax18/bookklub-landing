@@ -24,12 +24,14 @@ export default {
         secondary: {
           900: "#552F16",
           500: "#E08549",
+          450: "#FFF1B5",
           400: "#FFDDA1",
           off: "#F3985C",
         },
         neutral: {
           snow: "#F5F5F5",
         },
+        shade: { black: "#1B1C1E", white: "#FAF9F6" },
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <div className="bg-neutral-snow  rounded-[1rem] px-[2rem] pt-[2rem] flex flex-col items-center">
+    <div className="bg-neutral-snow w-full  rounded-[1rem] px-[2rem] pt-[2rem] flex flex-col items-center">
       <main className="flex flex-col w-full gap-2 mb-[5rem]">
         <div className="flex items-center justify-between ">
           <BookklubLogo className="w-[11.25rem] h-[3.5rem]" />
