@@ -11,13 +11,7 @@ const BookklubLogo = (props: SVGProps<SVGSVGElement>) => {
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
-      <rect
-        width="180"
-        height="56"
-        rx="28"
-        fill="#599B7B"
-        fill-opacity="0.15"
-      />
+      <rect width="180" height="56" rx="28" fill="#599B7B" fillOpacity="0.15" />
       <rect
         x="0.5"
         y="0.5"
@@ -25,7 +19,7 @@ const BookklubLogo = (props: SVGProps<SVGSVGElement>) => {
         height="55"
         rx="27.5"
         stroke="#599B7B"
-        stroke-opacity="0.1"
+        strokeOpacity="0.1"
       />
       <rect
         x="21"

@@ -22,35 +22,35 @@ const ManageRentalRequests = () => {
             cy="66"
             r="25.6"
             stroke="#95D7B7"
-            stroke-width="10.24"
+            strokeWidth="10.24"
           />
           <circle
             cx="113"
             cy="66"
             r="46.08"
             stroke="#95D7B7"
-            stroke-width="10.24"
+            strokeWidth="10.24"
           />
           <circle
             cx="113"
             cy="66"
             r="66.56"
             stroke="#95D7B7"
-            stroke-width="10.24"
+            strokeWidth="10.24"
           />
           <circle
             cx="113"
             cy="66"
             r="87.04"
             stroke="#95D7B7"
-            stroke-width="10.24"
+            strokeWidth="10.24"
           />
           <circle
             cx="113"
             cy="66"
             r="107.52"
             stroke="#95D7B7"
-            stroke-width="10.24"
+            strokeWidth="10.24"
           />
         </svg>
       </div>
