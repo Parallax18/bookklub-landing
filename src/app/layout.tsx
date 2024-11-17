@@ -6,7 +6,6 @@ const dmSans = DM_Sans({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-dm-sans",
-  // weight: ["300", "400", "500", "600", "700", "900"],
 });
 const monteCarlo = MonteCarlo({
   subsets: ["latin"],
@@ -24,7 +23,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log(dmSans);
   return (
     <html lang="en">
       <body className={`${dmSans.variable} ${monteCarlo.variable} antialiased`}>
