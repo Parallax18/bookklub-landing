@@ -1,7 +1,7 @@
 import React from "react";
 import WaitlistSectionRing from "../svg/waitlist-section-ring";
 import { Button } from "../ui/button";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import {
   FormControl,
   FormField,
@@ -10,9 +10,46 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import { useMutation } from "@/hooks/use-mutation";
+import { cn } from "@/lib/utils";
+
+async function joinWaitlist(data: {
+  email: string;
+}): Promise<{ message: string; status: number; success: boolean }> {
+  try {
+    const res = await fetch("/api", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const r = await res.json();
+
+    return r;
+  } catch (err) {
+    throw err;
+  }
+}
 
 const WaitlistSection = () => {
-  const form = useForm();
+  const form = useForm<{ email: string }>({
+    defaultValues: {
+      email: "",
+    },
+  });
+  const {
+    mutate: join,
+    isPending,
+
+    isError,
+  } = useMutation<{ email: string }>({
+    mutationFn: async ({ email }) => await joinWaitlist({ email }),
+  });
+  const onSubmit: SubmitHandler<{ email: string }> = (values) => {
+    join(values);
+  };
+
   return (
     <section>
       <div>
@@ -47,7 +84,7 @@ const WaitlistSection = () => {
             <form
               id="waitlist-form"
               className="flex items-end gap-[1rem]"
-              onSubmit={form.handleSubmit(() => {})}
+              onSubmit={form.handleSubmit(onSubmit)}
             >
               <FormField
                 control={form.control}
@@ -59,7 +96,10 @@ const WaitlistSection = () => {
                     </FormLabel>
                     <FormControl className="mt-0 py-0">
                       <Input
-                        className="rounded-[2.5rem] w-[24.75rem] h-[3.5rem] shadow-none mt-0"
+                        className={cn(
+                          "rounded-[2.5rem] w-[24.75rem] h-[3.5rem] shadow-none mt-0 transition-colors duration-150",
+                          isError && "border-red-400"
+                        )}
                         placeholder="mail@xyz.com"
                         {...field}
                       />
@@ -72,7 +112,7 @@ const WaitlistSection = () => {
                 type="submit"
                 className="font-[700] text-[1.125rem] leading-[1.63125rem] font-sans h-[3.5rem] w-[11.75rem] "
               >
-                Join the waitlist
+                {isPending ? "Loading...." : "Join the waitlist"}
               </Button>
             </form>
           </FormProvider>

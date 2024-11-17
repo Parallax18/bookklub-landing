@@ -1,4 +1,22 @@
 import connect from "@/utils/start-mongo";
+import { NextResponse } from "next/server";
+
+const Exception = ({
+  message,
+  status,
+}: {
+  message: string;
+  status: number;
+}) => {
+  return NextResponse.json(
+    {
+      message,
+      status,
+      success: false,
+    },
+    { status }
+  );
+};
 
 async function sendWaitListJoinSuccessEmail(data: { email: string }) {
   try {
@@ -18,7 +36,6 @@ async function sendWaitListJoinSuccessEmail(data: { email: string }) {
         },
       }),
     });
-    console.log({ res });
     if (!res.ok) {
       const errorText = await res.text();
       throw new Error(`EmailJS Error: ${errorText}`);
@@ -26,7 +43,6 @@ async function sendWaitListJoinSuccessEmail(data: { email: string }) {
 
     return res;
   } catch (err) {
-    console.log({ err });
     throw err;
   }
 }
@@ -35,18 +51,19 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     if (!body.email)
-      return new Response(`Email not in body`, {
+      return Exception({
+        message: `Email not in body`,
         status: 401,
       });
+
     const client = await connect;
     const collection = client.db("bookklub-waitlist").collection("users");
 
     const existingUser = await collection.findOne({ email: body.email });
     if (existingUser) {
-      return Response.json({
+      return Exception({
         message: "You're already on the waitlist!",
-        status: 201,
-        success: true,
+        status: 409,
       });
     }
 
@@ -60,8 +77,9 @@ export async function POST(request: Request) {
       success: true,
     });
   } catch (err) {
-    return new Response(`Server error: ${err}`, {
-      status: 400,
+    return Exception({
+      message: `${err}`,
+      status: 500,
     });
   }
 }
