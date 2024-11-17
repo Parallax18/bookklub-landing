@@ -1,7 +1,9 @@
-import { AnimatePresence } from "framer-motion";
-import React from "react";
+import { AnimatePresence, motion, useInView } from "framer-motion";
+import React, { useRef } from "react";
 
 const ManageRentalRequests = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
   return (
     <div className="bg-primary-900 rounded-[1rem] relative w-[42rem] h-[41.5rem] pl-[3.216875rem] pt-[4rem] pb-[3.216875rem]">
       <div className="flex justify-between">
@@ -54,36 +56,115 @@ const ManageRentalRequests = () => {
           />
         </svg>
       </div>
-      <AnimatePresence>
-        <div className="bg-white p-[1rem] rounded-[0.75rem] -rotate-[-3deg] w-[27.5rem] h-[4.875rem] request-message">
-          <span className="text-primary-900 font-sans font-[400] text-[1rem] leading-[1.5rem] -rotate-[-3deg]">
-            Your request for <b>Think and Grow Rich</b> has been approved by{" "}
-            <b>Marie.</b> You can connect and collect book.
-          </span>
-        </div>
-        <div className="bg-white p-[1rem] rounded-[0.75rem] rotate-[-3deg] w-[27.5rem] h-[4.875rem] request-message -z-10">
-          <span className="text-primary-900 font-sans font-[400] text-[1rem] leading-[1.5rem] rotate-[-3deg]">
-            Your request for <b>The Millionaire Next Door</b> has been sent to{" "}
-            <b>Anderson.</b>
-          </span>
-        </div>
-        <div className="bg-white p-[1rem] rounded-[0.75rem] -rotate-[-3deg] w-[27.5rem] h-[4.875rem] request-message">
-          <span className="text-primary-900 font-sans font-[400] text-[1rem] leading-[1.5rem] -rotate-[-3deg]">
-            You just received a request for <b>There was a country</b> from{" "}
-            <b>Yewande.</b>
-          </span>
-        </div>
-        <div className="bg-white p-[1rem] rounded-[0.75rem] rotate-[-3deg] w-[27.5rem] h-[4.875rem] request-message">
-          <span className="text-primary-900 font-sans font-[400] text-[1rem] leading-[1.5rem] rotate-[-3deg]">
-            Your request for <b>The Richest Man in Babylon</b> has been declined
-            by <b>Razaq.</b>
-          </span>
-        </div>
-        {/* <RentalRequestOne />
-        <RentalRequestTwo />
-        <RentalRequestThree />
-        <RentalRequestFour /> */}
-      </AnimatePresence>
+      <div>
+        <AnimatePresence>
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: -50,
+              rotate: 0,
+              transformOrigin: "right",
+            }}
+            animate={
+              isInView
+                ? { opacity: 1, y: 0, rotate: 3 }
+                : { opacity: 0, y: -50, rotate: 0 }
+            }
+            transition={{
+              type: "spring",
+              stiffness: 200,
+              damping: 15,
+              mass: 1,
+              delay: 0.1,
+            }}
+            className="bg-white p-[1rem] rounded-[0.75rem]  w-[27.5rem] h-[4.875rem] relative z-40 request-message"
+          >
+            <span className="text-primary-900 font-sans font-[400] text-[1rem] leading-[1.5rem] ">
+              Your request for <b>Think and Grow Rich</b> has been approved by{" "}
+              <b>Marie.</b> You can connect and collect book.
+            </span>
+          </motion.div>
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: -50,
+              rotate: 0,
+              transformOrigin: "left",
+            }}
+            animate={
+              isInView
+                ? { opacity: 1, y: 0, rotate: -3 }
+                : { opacity: 0, y: -50, rotate: 0 }
+            }
+            transition={{
+              type: "spring",
+              stiffness: 200,
+              damping: 15,
+              mass: 1,
+              delay: 0.2,
+            }}
+            className="bg-white p-[1rem] rounded-[0.75rem]  w-[27.5rem] h-[4.875rem] relative z-10 request-message "
+          >
+            <span className="text-primary-900 font-sans font-[400] text-[1rem] leading-[1.5rem] ">
+              Your request for <b>The Millionaire Next Door</b> has been sent to{" "}
+              <b>Anderson.</b>
+            </span>
+          </motion.div>
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: -50,
+              rotate: 0,
+              transformOrigin: "right",
+            }}
+            animate={
+              isInView
+                ? { opacity: 1, y: 0, rotate: 3 }
+                : { opacity: 0, y: -50, rotate: 0 }
+            }
+            transition={{
+              type: "spring",
+              stiffness: 200,
+              damping: 15,
+              mass: 1,
+              delay: 0.3,
+            }}
+            className="bg-white p-[1rem] rounded-[0.75rem]  w-[27.5rem] h-[4.875rem]  relative z-30 request-message"
+          >
+            <span className="text-primary-900 font-sans font-[400] text-[1rem] leading-[1.5rem] ">
+              You just received a request for <b>There was a country</b> from{" "}
+              <b>Yewande.</b>
+            </span>
+          </motion.div>
+          <motion.div
+            ref={ref}
+            initial={{
+              opacity: 0,
+              y: -50,
+              rotate: 0,
+              transformOrigin: "left",
+            }}
+            animate={
+              isInView
+                ? { opacity: 1, y: 0, rotate: -3 }
+                : { opacity: 0, y: -50, rotate: 0 }
+            }
+            transition={{
+              type: "spring",
+              stiffness: 200,
+              damping: 15,
+              mass: 1,
+              delay: 0.4,
+            }}
+            className="bg-white p-[1rem] rounded-[0.75rem]  w-[27.5rem] h-[4.875rem]  relative z-10 request-message"
+          >
+            <span className="text-primary-900 font-sans font-[400] text-[1rem] leading-[1.5rem] ">
+              Your request for <b>The Richest Man in Babylon</b> has been
+              declined by <b>Razaq.</b>
+            </span>
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </div>
   );
 };
